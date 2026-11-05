@@ -1,26 +1,67 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-primary: #05893e;
+  --brand-dark: #047f39;
+  --brand-light: #f3fbf4;
+  --background: #fafcfa;
+  --surface-muted: #f0f5f0;
+  --foreground: #1d271f;
+  --border: #e1e8e1;
+  --price-up: #1a9951;
+  --price-down: #d03739;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: var(--brand-primary);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-light: var(--brand-light);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-price-up: var(--price-up);
+  --color-price-down: var(--price-down);
+  --font-sans: var(--font-hind-siliguri);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-hind-siliguri), sans-serif;
+}
+
+/* Price Ticker Animation */
+.ticker-track {
+  width: max-content;
+  animation: ticker-scroll 60s linear infinite;
+}
+
+.ticker-group {
+  width: max-content;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
 }
