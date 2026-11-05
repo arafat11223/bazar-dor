@@ -1,7 +1,12 @@
+
 import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
+import { Toaster } from "sonner";
+
 import Navbar from "../components/layout/Navbar";
 import PriceTicker from "../components/layout/PriceTicker";
+import Footer from "../components/layout/Footer";
+
 import "./globals.css";
 
 const hindSiliguri = Hind_Siliguri({
@@ -20,11 +25,26 @@ export default function RootLayout({
   children,
 }: LayoutProps<"/">) {
   return (
-    <html lang="bn" className={`${hindSiliguri.variable} h-full antialiased`}>
+    <html
+      lang="bn"
+      className={`${hindSiliguri.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+    >
       <body className="flex min-h-full flex-col">
         <Navbar />
+
         <PriceTicker />
+
         {children}
+
+        <Footer />
+
+        <Toaster
+          position="top-right"
+          richColors
+          closeButton
+          duration={3000}
+        />
       </body>
     </html>
   );

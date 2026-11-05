@@ -1,9 +1,13 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { headers } from "next/headers";
+
 import {
   fetchCategories,
   fetchProductBySlug,
 } from "../../../lib/api";
+
+import { auth } from "../../../lib/auth";
 
 interface ProductPageProps {
   params: Promise<{
@@ -22,6 +26,19 @@ export default async function ProductDetailsPage({
 }: ProductPageProps) {
   const { slug } = await params;
 
+  // Check Authentication
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  // Redirect unauthenticated users
+  if (!session) {
+    redirect(
+      `/signin?callbackURL=${encodeURIComponent(`/product/${slug}`)}`
+    );
+  }
+
+  // Fetch Product Data
   const product = await fetchProductBySlug(slug);
 
   if (!product) {
