@@ -78,3 +78,4 @@ export default async function PriceTicker() {
     </section>
   );
 }
+// done
